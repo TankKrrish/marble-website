@@ -1,0 +1,3241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>MarbleLuxe – Premium Natural Stone</title>
+  <meta name="description"
+    content="India's finest marble, granite and natural stone for kitchens, bedrooms, and flooring." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --bg: #0D0D0D;
+      --bg2: #141414;
+      --bg3: #1E1E1E;
+      --line: #2A2A2A;
+      --line2: #3A3A3A;
+      --text: #F0EDE8;
+      --muted: #9A9690;
+      --cream: #FAF8F5;
+      --fd: 'Cormorant Garamond', serif;
+      --fb: 'Outfit', sans-serif;
+      --r: 4px;
+      --tr: all .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    html.theme-light {
+      --gold: #8B5E1E;
+      --gold-light: #A8742A;
+      --bg: #F5F2EE;
+      --bg2: #EAE6E0;
+      --bg3: #DEDBD5;
+      --line: #CCCAC5;
+      --line2: #B8B5B0;
+      --text: #1A1612;
+      --muted: #5A5550;
+      --cream: #1A1612;
+    }
+
+    html.theme-warm {
+      --gold: #F5C518;
+      --gold-light: #FFD740;
+      --bg: #120C00;
+      --bg2: #1E1400;
+      --bg3: #2A1E00;
+      --line: #3A2A00;
+      --line2: #4A3800;
+      --text: #FFF8E0;
+      --muted: #C8A040;
+      --cream: #FFF8E0;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--fb);
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background .4s, color .4s
+    }
+
+    img {
+      height: 40px;
+      max-width: 100%;
+      display: block
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--tr)
+    }
+
+    ul {
+      list-style: none
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      font-family: var(--fb);
+      transition: var(--tr)
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg2)
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 3px
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      transition: opacity .5s, visibility .5s
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none
+    }
+
+    .ld-logo {
+      font-family: var(--fd);
+      font-size: 2rem;
+      color: var(--gold);
+      letter-spacing: .2em;
+      animation: ldp 1.4s ease-in-out infinite
+    }
+
+    .ld-bar {
+      width: 180px;
+      height: 2px;
+      background: var(--line2);
+      border-radius: 2px;
+      overflow: hidden
+    }
+
+    .ld-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      width: 0;
+      animation: ldf 2s ease forwards
+    }
+
+    @keyframes ldf {
+      to {
+        width: 100%
+      }
+    }
+
+    @keyframes ldp {
+
+      0%,
+      100% {
+        opacity: .4
+      }
+
+      50% {
+        opacity: 1
+      }
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 800;
+      padding: 0 5%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: var(--tr)
+    }
+
+    nav.scrolled {
+      background: rgba(13, 13, 13, .94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(201, 168, 76, .12)
+    }
+
+    html.theme-light nav.scrolled {
+      background: rgba(245, 242, 238, .96)
+    }
+
+    html.theme-warm nav.scrolled {
+      background: rgba(18, 12, 0, .95)
+    }
+
+    .nav-logo {
+      font-family: var(--fd);
+      font-size: 1.45rem;
+      color: var(--gold);
+      cursor: pointer
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center
+    }
+
+    .nav-links a {
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      position: relative
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: var(--tr)
+    }
+
+    .nav-links a:hover {
+      color: var(--gold)
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1)
+    }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--bg);
+      padding: 9px 22px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: var(--r)
+    }
+
+    .nav-cta:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px)
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      padding: 4px
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      transition: var(--tr)
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px)
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px)
+    }
+
+    /* MOBILE MENU */
+    .mob-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--bg2);
+      z-index: 799;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      transform: translateX(100%);
+      transition: transform .4s ease
+    }
+
+    .mob-menu.open {
+      transform: translateX(0)
+    }
+
+    .mob-menu a,
+    .mob-menu button {
+      font-family: var(--fd);
+      font-size: 1.8rem;
+      color: var(--text);
+      font-weight: 300;
+      background: none;
+      padding: 0
+    }
+
+    .mob-menu a:hover,
+    .mob-menu button:hover {
+      color: var(--gold)
+    }
+
+    /* SECTION */
+    .sec {
+      padding: 88px 5%
+    }
+
+    .sec-label {
+      font-size: .72rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 14px
+    }
+
+    .sec-title {
+      font-family: var(--fd);
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--cream)
+    }
+
+    .sec-title em {
+      font-style: italic;
+      color: var(--gold)
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .7s ease, transform .7s ease
+    }
+
+    .reveal.on {
+      opacity: 1;
+      transform: none
+    }
+
+    /* BUTTONS */
+    .btn-gold {
+      background: var(--gold);
+      color: var(--bg);
+      padding: 13px 32px;
+      font-weight: 600;
+      font-size: .88rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: var(--r);
+      border: none;
+      display: inline-block;
+      cursor: pointer
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px)
+    }
+
+    .btn-out {
+      border: 1px solid rgba(201, 168, 76, .5);
+      color: var(--gold);
+      padding: 13px 32px;
+      font-size: .88rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: var(--r);
+      background: transparent;
+      cursor: pointer
+    }
+
+    .btn-out:hover {
+      background: rgba(201, 168, 76, .1);
+      border-color: var(--gold)
+    }
+
+    /* HERO */
+    #hero-sec {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden
+    }
+
+    .hero-slides {
+      position: absolute;
+      inset: 0
+    }
+
+    .hslide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease
+    }
+
+    .hslide.on {
+      opacity: 1
+    }
+
+    .hslide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(13, 13, 13, .88) 0%, rgba(13, 13, 13, .35) 60%, rgba(13, 13, 13, .7) 100%)
+    }
+
+    .hslide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .hero-body {
+      position: relative;
+      z-index: 2;
+      max-width: 660px;
+      padding: 150px 5% 60px
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201, 168, 76, .1);
+      border: 1px solid rgba(201, 168, 76, .28);
+      padding: 7px 18px;
+      border-radius: 50px;
+      font-size: .75rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 26px;
+      animation: fup .7s .1s both
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: blink 1.6s infinite
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .1
+      }
+    }
+
+    .hero-h {
+      font-family: var(--fd);
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
+      line-height: 1.06;
+      font-weight: 300;
+      margin-bottom: 22px;
+      animation: fup .7s .25s both
+    }
+
+    .hero-h em {
+      font-style: italic;
+      color: var(--gold);
+      display: block
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 40px;
+      animation: fup .7s .4s both
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fup .7s .55s both
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: sa 1.6s infinite
+    }
+
+    @keyframes sa {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom
+      }
+    }
+
+    .hero-dots {
+      position: absolute;
+      bottom: 36px;
+      right: 5%;
+      z-index: 2;
+      display: flex;
+      gap: 8px
+    }
+
+    .hdot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .25);
+      cursor: pointer;
+      transition: var(--tr)
+    }
+
+    .hdot.on {
+      background: var(--gold);
+      transform: scale(1.3)
+    }
+
+    @keyframes fup {
+      from {
+        opacity: 0;
+        transform: translateY(28px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    /* SEARCH */
+    .search-sec {
+      background: var(--bg2);
+      padding: 26px 5%;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .search-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative
+    }
+
+    .search-inp {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--line2);
+      color: var(--text);
+      padding: 15px 52px 15px 18px;
+      font-family: var(--fb);
+      font-size: .95rem;
+      border-radius: var(--r);
+      outline: none;
+      transition: var(--tr)
+    }
+
+    .search-inp::placeholder {
+      color: var(--muted)
+    }
+
+    .search-inp:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, .1)
+    }
+
+    .search-go {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      bottom: 4px;
+      background: var(--gold);
+      color: var(--bg);
+      padding: 0 18px;
+      border-radius: var(--r);
+      font-size: .82rem;
+      font-weight: 600
+    }
+
+    .search-go:hover {
+      background: var(--gold-light)
+    }
+
+    .s-sug {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg3);
+      border: 1px solid var(--line2);
+      border-radius: var(--r);
+      display: none;
+      z-index: 200;
+      max-height: 260px;
+      overflow-y: auto
+    }
+
+    .s-sug.show {
+      display: block
+    }
+
+    .sug-item {
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: .88rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--tr)
+    }
+
+    .sug-item:hover {
+      background: var(--line);
+      color: var(--gold)
+    }
+
+    /* CATEGORIES */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3px;
+      margin-top: 48px
+    }
+
+    .cat-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer
+    }
+
+    .cat-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease
+    }
+
+    .cat-card:hover img {
+      transform: scale(1.08)
+    }
+
+    .cat-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13, 13, 13, .88) 0%, rgba(13, 13, 13, .1) 60%, transparent 100%)
+    }
+
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 0 solid var(--gold);
+      z-index: 3;
+      transition: var(--tr)
+    }
+
+    .cat-card:hover::before {
+      border-width: 2px
+    }
+
+    .cat-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      z-index: 2
+    }
+
+    .cat-name {
+      font-family: var(--fd);
+      font-size: 1.3rem;
+      font-weight: 300;
+      transition: var(--tr)
+    }
+
+    .cat-card:hover .cat-name {
+      color: var(--gold)
+    }
+
+    .cat-count {
+      font-size: .75rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      margin-top: 4px
+    }
+
+    /* PRODUCT CARD */
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 22px
+    }
+
+    .prod-card {
+      background: var(--bg3);
+      border-radius: var(--r);
+      overflow: hidden;
+      transition: var(--tr);
+      border: 1px solid transparent;
+      cursor: pointer
+    }
+
+    .prod-card:hover {
+      border-color: rgba(201, 168, 76, .25);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 56px rgba(0, 0, 0, .45)
+    }
+
+    .pimg {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden
+    }
+
+    .pimg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease
+    }
+
+    .prod-card:hover .pimg img {
+      transform: scale(1.06)
+    }
+
+    .pbadge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--gold);
+      color: var(--bg);
+      font-size: .68rem;
+      font-weight: 600;
+      padding: 4px 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: 2px
+    }
+
+    .pfav {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(13, 13, 13, .65);
+      border: 1px solid rgba(255, 255, 255, .1);
+      color: var(--muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .95rem;
+      transition: var(--tr)
+    }
+
+    .pfav:hover,
+    .pfav.on {
+      background: rgba(201, 168, 76, .2);
+      color: var(--gold);
+      border-color: var(--gold)
+    }
+
+    .pbody {
+      padding: 18px
+    }
+
+    .pid {
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 5px
+    }
+
+    .pname {
+      font-family: var(--fd);
+      font-size: 1.15rem;
+      font-weight: 400;
+      margin-bottom: 7px;
+      color: var(--cream)
+    }
+
+    .pdesc {
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 14px
+    }
+
+    .pfoot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px
+    }
+
+    .ptag {
+      font-size: .72rem;
+      color: var(--gold);
+      background: rgba(201, 168, 76, .1);
+      padding: 4px 11px;
+      border-radius: 50px;
+      white-space: nowrap
+    }
+
+    .pinq-btn {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 76, .4);
+      padding: 7px 16px;
+      font-size: .78rem;
+      border-radius: var(--r);
+      white-space: nowrap
+    }
+
+    .pinq-btn:hover {
+      background: var(--gold);
+      color: var(--bg)
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center
+    }
+
+    .about-imgs {
+      position: relative;
+      height: 500px
+    }
+
+    .aimg-main {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70%;
+      height: 78%;
+      border-radius: var(--r);
+      object-fit: cover
+    }
+
+    .aimg-acc {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 54%;
+      height: 54%;
+      border-radius: var(--r);
+      object-fit: cover;
+      border: 4px solid var(--bg)
+    }
+
+    .about-yr {
+      position: absolute;
+      top: 48%;
+      left: 67%;
+      transform: translate(-50%, -50%);
+      background: var(--gold);
+      color: var(--bg);
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fd);
+      z-index: 2
+    }
+
+    .about-yr .yn {
+      font-size: 1.7rem;
+      line-height: 1;
+      font-weight: 600
+    }
+
+    .about-yr .yl {
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 36px
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 18px;
+      background: var(--bg2);
+      border-radius: var(--r);
+      border: 1px solid var(--line)
+    }
+
+    .stat-n {
+      font-family: var(--fd);
+      font-size: 1.9rem;
+      color: var(--gold);
+      line-height: 1
+    }
+
+    .stat-l {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: 5px;
+      letter-spacing: .07em
+    }
+
+    /* SPECIALS */
+    .sp-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+      margin-top: 48px;
+      height: 520px
+    }
+
+    .sp-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer
+    }
+
+    .sp-card:first-child {
+      grid-row: span 2
+    }
+
+    .sp-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease
+    }
+
+    .sp-card:hover img {
+      transform: scale(1.07)
+    }
+
+    .sp-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13, 13, 13, .8) 0%, transparent 60%)
+    }
+
+    .sp-lbl {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      right: 18px;
+      z-index: 2
+    }
+
+    .sp-lbl h3 {
+      font-family: var(--fd);
+      font-size: 1.25rem;
+      font-weight: 300
+    }
+
+    .sp-lbl p {
+      font-size: .77rem;
+      color: var(--muted);
+      margin-top: 3px
+    }
+
+    /* TESTIMONIALS */
+    .testi-wrap {
+      max-width: 760px;
+      margin: 52px auto 0;
+      text-align: center
+    }
+
+    .tslide {
+      display: none
+    }
+
+    .tslide.on {
+      display: block;
+      animation: fup .5s ease
+    }
+
+    .tquote {
+      font-family: var(--fd);
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--cream);
+      margin-bottom: 28px
+    }
+
+    .tquote::before {
+      content: '"';
+      font-size: 4.5rem;
+      line-height: 0;
+      color: var(--gold);
+      opacity: .25;
+      display: block;
+      margin-bottom: 18px
+    }
+
+    .tauthor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px
+    }
+
+    .tavatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold)
+    }
+
+    .tname strong {
+      display: block;
+      color: var(--cream);
+      font-size: .92rem
+    }
+
+    .tname span {
+      font-size: .77rem;
+      color: var(--muted)
+    }
+
+    .tcontrols {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 36px
+    }
+
+    .tbtn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--line2);
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .tbtn:hover {
+      border-color: var(--gold);
+      color: var(--gold)
+    }
+
+    .tdots {
+      display: flex;
+      gap: 7px;
+      justify-content: center;
+      margin-top: 20px
+    }
+
+    .tdot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line2);
+      cursor: pointer;
+      transition: var(--tr)
+    }
+
+    .tdot.on {
+      background: var(--gold);
+      width: 22px;
+      border-radius: 3px
+    }
+
+    /* KITCHEN / FLOOR */
+    .kit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-top: 48px
+    }
+
+    .kit-img {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer
+    }
+
+    .kit-img img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      transition: transform .6s ease;
+      display: block
+    }
+
+    .kit-img:hover img {
+      transform: scale(1.08)
+    }
+
+    .kit-ov {
+      position: absolute;
+      inset: 0;
+      background: rgba(201, 168, 76, .14);
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--tr);
+      font-size: 1.8rem;
+      color: #fff
+    }
+
+    .kit-img:hover .kit-ov {
+      opacity: 1
+    }
+
+    .floor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px
+    }
+
+    .fl-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer
+    }
+
+    .fl-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease
+    }
+
+    .fl-card:hover img {
+      transform: scale(1.1)
+    }
+
+    .fl-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(13, 13, 13, .38);
+      transition: var(--tr)
+    }
+
+    .fl-card:hover::after {
+      background: rgba(13, 13, 13, .1)
+    }
+
+    .fl-lbl {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      z-index: 2;
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .07em;
+      color: var(--cream)
+    }
+
+    /* PRODUCTS PAGE */
+    #products-page {
+      display: none;
+      padding: 120px 5% 80px;
+      min-height: 100vh;
+      background: var(--bg)
+    }
+
+    .plist-head {
+      margin-bottom: 32px
+    }
+
+    .plist-head h1 {
+      font-family: var(--fd);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--cream)
+    }
+
+    .plist-search {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--line2);
+      color: var(--text);
+      padding: 13px 18px;
+      border-radius: var(--r);
+      font-family: var(--fb);
+      font-size: .93rem;
+      outline: none;
+      transition: var(--tr);
+      margin-bottom: 20px
+    }
+
+    .plist-search:focus {
+      border-color: var(--gold)
+    }
+
+    .plist-search::placeholder {
+      color: var(--muted)
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px
+    }
+
+    .filt-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      border: 1px solid var(--line2);
+      background: transparent;
+      color: var(--muted);
+      font-size: .8rem;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: var(--tr)
+    }
+
+    .filt-btn.on,
+    .filt-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201, 168, 76, .1)
+    }
+
+    .no-res {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted)
+    }
+
+    .no-res-icon {
+      font-size: 3rem;
+      margin-bottom: 14px
+    }
+
+    .no-res-clear {
+      margin-top: 14px;
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      padding: 10px 24px;
+      border-radius: var(--r);
+      cursor: pointer;
+      font-size: .83rem;
+      font-weight: 600
+    }
+
+    .no-res-clear:hover {
+      background: var(--gold-light)
+    }
+
+    /* PRODUCT DETAIL PAGE */
+    #product-detail-page {
+      display: none;
+      padding: 120px 5% 80px;
+      min-height: 100vh;
+      background: var(--bg)
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201, 168, 76, .08);
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 76, .25);
+      padding: 9px 18px;
+      border-radius: var(--r);
+      font-size: .83rem;
+      margin-bottom: 40px;
+      cursor: pointer;
+      transition: var(--tr)
+    }
+
+    .back-btn:hover {
+      background: rgba(201, 168, 76, .18);
+      border-color: var(--gold)
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start
+    }
+
+    .d-gallery {
+      position: sticky;
+      top: 90px
+    }
+
+    .d-main-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--r);
+      margin-bottom: 10px;
+      transition: var(--tr)
+    }
+
+    .d-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px
+    }
+
+    .d-thumb {
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 3px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: .55;
+      transition: var(--tr);
+      display: block;
+      width: 100%
+    }
+
+    .d-thumb.on,
+    .d-thumb:hover {
+      opacity: 1;
+      border-color: var(--gold)
+    }
+
+    .d-id {
+      font-size: .76rem;
+      color: var(--muted);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 10px
+    }
+
+    .d-title {
+      font-family: var(--fd);
+      font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 16px;
+      line-height: 1.2
+    }
+
+    .d-tags {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-bottom: 20px
+    }
+
+    .d-tag {
+      font-size: .72rem;
+      padding: 4px 13px;
+      border-radius: 50px;
+      background: rgba(201, 168, 76, .1);
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 76, .2)
+    }
+
+    .d-tag.green {
+      color: #4CAF50;
+      border-color: #4CAF50;
+      background: rgba(76, 175, 80, .1)
+    }
+
+    .d-short {
+      font-size: .93rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border-left: 3px solid var(--gold);
+      background: rgba(201, 168, 76, .04);
+      border-radius: 0 4px 4px 0
+    }
+
+    .d-long {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 26px
+    }
+
+    .d-inq-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--bg);
+      padding: 15px;
+      font-size: .92rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--r);
+      cursor: pointer;
+      margin-bottom: 10px;
+      display: block
+    }
+
+    .d-inq-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px)
+    }
+
+    .d-sample-btn {
+      width: 100%;
+      background: transparent;
+      color: var(--gold);
+      padding: 13px;
+      font-size: .88rem;
+      font-weight: 500;
+      border: 1px solid rgba(201, 168, 76, .38);
+      border-radius: var(--r);
+      cursor: pointer;
+      margin-bottom: 26px;
+      display: block
+    }
+
+    .d-sample-btn:hover {
+      background: rgba(201, 168, 76, .1);
+      border-color: var(--gold)
+    }
+
+    .d-specs {
+      border-top: 1px solid var(--line2);
+      padding-top: 22px
+    }
+
+    .d-specs h3 {
+      font-family: var(--fd);
+      font-size: 1.05rem;
+      color: var(--cream);
+      margin-bottom: 14px;
+      font-weight: 400
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .05);
+      font-size: .86rem
+    }
+
+    .sk {
+      color: var(--muted)
+    }
+
+    .sv {
+      color: var(--cream);
+      font-weight: 500
+    }
+
+    /* CONTACT PAGE */
+    #contact-page {
+      display: none;
+      padding: 120px 5% 80px;
+      min-height: 100vh;
+      background: var(--bg)
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 52px;
+      margin-top: 48px
+    }
+
+    .cinfo h3 {
+      font-family: var(--fd);
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 22px
+    }
+
+    .citem {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 24px;
+      align-items: flex-start
+    }
+
+    .cicon {
+      width: 42px;
+      height: 42px;
+      background: rgba(201, 168, 76, .1);
+      border: 1px solid rgba(201, 168, 76, .18);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0
+    }
+
+    .citem strong {
+      display: block;
+      color: var(--cream);
+      font-size: .88rem;
+      margin-bottom: 3px
+    }
+
+    .citem span {
+      font-size: .82rem;
+      color: var(--muted)
+    }
+
+    .cform {
+      background: var(--bg2);
+      padding: 36px;
+      border-radius: var(--r);
+      border: 1px solid var(--line)
+    }
+
+    .cform h3 {
+      font-family: var(--fd);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 22px
+    }
+
+    .frow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .fgrp {
+      margin-bottom: 14px
+    }
+
+    .fgrp label {
+      display: block;
+      font-size: .76rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 7px
+    }
+
+    .finp {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--line2);
+      color: var(--text);
+      padding: 12px 15px;
+      border-radius: var(--r);
+      font-family: var(--fb);
+      font-size: .88rem;
+      outline: none;
+      transition: var(--tr);
+      resize: vertical
+    }
+
+    .finp:focus {
+      border-color: var(--gold)
+    }
+
+    .finp::placeholder {
+      color: var(--muted)
+    }
+
+    .fsub {
+      width: 100%;
+      background: var(--gold);
+      color: var(--bg);
+      padding: 13px;
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--r);
+      cursor: pointer
+    }
+
+    .fsub:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px)
+    }
+
+    /* STATIC PAGES */
+    #about-page,
+    #terms-page,
+    #privacy-page {
+      display: none;
+      padding: 120px 5% 80px;
+      min-height: 100vh;
+      background: var(--bg)
+    }
+
+    .legal-wrap {
+      max-width: 780px;
+      margin: 44px auto 0
+    }
+
+    .legal-wrap h2 {
+      font-family: var(--fd);
+      font-size: 1.4rem;
+      color: var(--cream);
+      margin: 36px 0 14px
+    }
+
+    .legal-wrap p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 14px
+    }
+
+    .legal-wrap ul {
+      padding-left: 18px;
+      margin-bottom: 14px
+    }
+
+    .legal-wrap li {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 7px
+    }
+
+    /* MODAL */
+    .modal-ov {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .8);
+      z-index: 1500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(8px)
+    }
+
+    .modal-ov.open {
+      display: flex
+    }
+
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--line2);
+      border-radius: var(--r);
+      max-width: 520px;
+      width: 100%;
+      padding: 40px;
+      position: relative;
+      animation: mIn .3s ease
+    }
+
+    @keyframes mIn {
+      from {
+        transform: scale(.9);
+        opacity: 0
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .mclose {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--line);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--muted);
+      cursor: pointer
+    }
+
+    .mclose:hover {
+      background: var(--line2);
+      color: var(--text)
+    }
+
+    .modal h2 {
+      font-family: var(--fd);
+      font-size: 1.7rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 6px
+    }
+
+    .msub {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: 24px
+    }
+
+    .msuccess {
+      text-align: center;
+      padding: 16px;
+      display: none
+    }
+
+    .msuccess .micon {
+      font-size: 2.8rem;
+      margin-bottom: 12px
+    }
+
+    .msuccess h3 {
+      font-family: var(--fd);
+      font-size: 1.4rem;
+      color: var(--cream);
+      margin-bottom: 8px
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--line);
+      padding: 64px 5% 28px
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 44px;
+      margin-bottom: 52px
+    }
+
+    .fbrand .flogo {
+      font-family: var(--fd);
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 14px
+    }
+
+    .fbrand p {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 260px;
+      margin-bottom: 22px
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px
+    }
+
+    .soc {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: .88rem;
+      transition: var(--tr)
+    }
+
+    .soc:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201, 168, 76, .1)
+    }
+
+    .fcol h4 {
+      font-size: .76rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 18px
+    }
+
+    .fcol a {
+      display: block;
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: 9px;
+      transition: var(--tr);
+      cursor: pointer
+    }
+
+    .fcol a:hover {
+      color: var(--gold);
+      padding-left: 5px
+    }
+
+    .fbot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+      gap: 14px
+    }
+
+    .fbot p {
+      font-size: .8rem;
+      color: var(--muted)
+    }
+
+    .flegal {
+      display: flex;
+      gap: 20px
+    }
+
+    .flegal a {
+      font-size: .8rem;
+      color: var(--muted);
+      cursor: pointer
+    }
+
+    .flegal a:hover {
+      color: var(--gold)
+    }
+
+    /* FIXED WIDGETS */
+    #back-top {
+      position: fixed;
+      bottom: 100px;
+      left: 28px;
+      width: 42px;
+      height: 42px;
+      background: var(--gold);
+      color: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      z-index: 700;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: var(--tr);
+      cursor: pointer;
+      font-weight: 700
+    }
+
+    #back-top.show {
+      opacity: 1;
+      transform: none
+    }
+
+    #back-top:hover {
+      background: var(--gold-light)
+    }
+
+    .wa-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #25D366;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      z-index: 700;
+      box-shadow: 0 4px 18px rgba(37, 211, 102, .4);
+      transition: var(--tr);
+      text-decoration: none
+    }
+
+    .wa-btn:hover {
+      transform: scale(1.1)
+    }
+
+    /* THEME TOGGLE */
+    #theme-tog {
+      position: fixed;
+      bottom: 90px;
+      right: 28px;
+      z-index: 700
+    }
+
+    .theme-main-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(201, 168, 76, .35);
+      background: var(--bg2);
+      color: var(--text);
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .4)
+    }
+
+    .theme-main-btn:hover {
+      border-color: var(--gold);
+      transform: scale(1.08)
+    }
+
+    .theme-panel {
+      position: absolute;
+      bottom: 58px;
+      right: 0;
+      background: var(--bg2);
+      border: 1px solid var(--line2);
+      border-radius: 12px;
+      padding: 8px;
+      width: 152px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .5);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px) scale(.95);
+      transition: all .25s ease
+    }
+
+    .theme-panel.open {
+      opacity: 1;
+      visibility: visible;
+      transform: none
+    }
+
+    .topt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--fb);
+      font-size: .8rem;
+      font-weight: 500;
+      width: 100%;
+      text-align: left;
+      transition: var(--tr)
+    }
+
+    .topt:hover {
+      background: var(--line)
+    }
+
+    .topt.on {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, .1)
+    }
+
+    .tswatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(255, 255, 255, .2)
+    }
+
+    .sw-dark {
+      background: radial-gradient(circle at 35% 35%, #2A2A2A, #0D0D0D)
+    }
+
+    .sw-light {
+      background: radial-gradient(circle at 35% 35%, #EAE6E0, #F5F2EE)
+    }
+
+    .sw-warm {
+      background: radial-gradient(circle at 35% 35%, #F5C518, #120C00 70%)
+    }
+
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--gold);
+      color: var(--bg);
+      padding: 12px 22px;
+      border-radius: var(--r);
+      font-weight: 600;
+      font-size: .85rem;
+      z-index: 2000;
+      opacity: 0;
+      transition: var(--tr);
+      white-space: nowrap;
+      pointer-events: none
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) {
+      .about-grid {
+        grid-template-columns: 1fr
+      }
+
+      .about-imgs {
+        height: 320px;
+        margin-bottom: 16px
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr
+      }
+
+      .d-gallery {
+        position: static
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .sp-grid {
+        grid-template-columns: 1fr 1fr;
+        height: auto
+      }
+
+      .sp-card:first-child {
+        grid-row: span 1;
+        grid-column: span 2
+      }
+
+      .floor-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:768px) {
+
+      .nav-links,
+      .nav-cta {
+        display: none
+      }
+
+      .hamburger {
+        display: flex
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .contact-grid,
+      .frow {
+        grid-template-columns: 1fr
+      }
+
+      .kit-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr
+      }
+
+      .cat-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .hero-btns {
+        flex-direction: column
+      }
+    }
+
+    @media(max-width:480px) {
+      .sec {
+        padding: 64px 5%
+      }
+
+      .sp-grid {
+        grid-template-columns: 1fr
+      }
+
+      .sp-card:first-child {
+        grid-column: span 1
+      }
+
+      .floor-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .modal {
+        padding: 26px 18px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="ld-logo">MARBLE<span style="font-style:italic;color:var(--text);font-weight:300">Luxe</span></div>
+    <div class="ld-bar">
+      <div class="ld-fill"></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-logo" onclick="goPage('home')"><img src="./logo-1.png" alt=""></div>
+    <ul class="nav-links">
+      <li><a href="javascript:void(0)" onclick="goPage('home')">Home</a></li>
+      <li><a href="javascript:void(0)" onclick="goPage('products')">Products</a></li>
+      <li><a href="javascript:void(0)" onclick="goPage('about')">About</a></li>
+      <li><a href="javascript:void(0)" onclick="goPage('contact')">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="openInquiry('')">Get Quote</button>
+    <button class="hamburger" id="hbg" onclick="toggleMob()"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mobMenu">
+    <a href="javascript:void(0)" onclick="goPage('home');toggleMob()">Home</a>
+    <a href="javascript:void(0)" onclick="goPage('products');toggleMob()">Products</a>
+    <a href="javascript:void(0)" onclick="goPage('about');toggleMob()">About</a>
+    <a href="javascript:void(0)" onclick="goPage('contact');toggleMob()">Contact</a>
+    <button onclick="openInquiry('');toggleMob()">Get Quote</button>
+  </div>
+
+  <!-- =============== HOME PAGE =============== -->
+  <div id="home-page">
+    <!-- HERO -->
+    <section id="hero-sec">
+      <div class="hero-slides">
+        <div class="hslide on"><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1600&q=80"
+            alt="Marble kitchen" /></div>
+        <div class="hslide"><img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?w=1600&q=80"
+            alt="White marble" /></div>
+        <div class="hslide"><img src="https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=1600&q=80"
+            alt="Marble floor" /></div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-badge">&#127963; India's Premium Stone Collection</div>
+        <h1 class="hero-h">Crafted in Stone.<br><em>Born for Eternity.</em></h1>
+        <p class="hero-sub">Discover nature's finest marble, granite, and natural stone — curated for kitchens,
+          bedrooms, flooring and beyond.</p>
+        <div class="hero-btns">
+          <button class="btn-gold" onclick="goPage('products')">Explore Collection</button>
+          <button class="btn-out" onclick="goPage('contact')">Contact Us</button>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <div class="scroll-line"></div><span>Scroll</span>
+      </div>
+      <div class="hero-dots" id="heroDots"></div>
+    </section>
+
+    <!-- SEARCH -->
+    <div class="search-sec">
+      <div class="search-wrap">
+        <input class="search-inp" id="mainSearch" type="text" placeholder="Search for marble, granite, onyx, sandstone…"
+          oninput="showSug(this.value)" onblur="setTimeout(hideSug,180)" />
+        <button class="search-go" onclick="doSearch()">Search</button>
+        <div class="s-sug" id="sSug"></div>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <section class="sec">
+      <span class="sec-label reveal">Our Collections</span>
+      <h2 class="sec-title reveal">Shop by <em>Category</em></h2>
+      <div class="cat-grid" id="catGrid"></div>
+    </section>
+
+    <!-- BEST PRODUCTS -->
+    <section class="sec" style="background:var(--bg2)">
+      <div
+        style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px;flex-wrap:wrap;gap:16px">
+        <div class="reveal"><span class="sec-label">Handpicked for You</span>
+          <h2 class="sec-title">Best <em>Products</em></h2>
+        </div>
+        <a href="javascript:void(0)" onclick="goPage('products')"
+          style="color:var(--gold);font-size:.83rem;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--gold);padding-bottom:2px">View
+          All &#8594;</a>
+      </div>
+      <div class="prod-grid" id="bestGrid"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="sec">
+      <div class="about-grid">
+        <div class="about-imgs reveal">
+          <img class="aimg-main" src="https://images.unsplash.com/photo-1600607686527-6fb886090705?w=800&q=80"
+            alt="Marble workshop" />
+          <img class="aimg-acc" src="https://images.unsplash.com/photo-1617104678098-de229db51175?w=600&q=80"
+            alt="Stone selection" />
+          <div class="about-yr"><span class="yn">25+</span><span class="yl">Years</span></div>
+        </div>
+        <div class="reveal">
+          <span class="sec-label">Our Story</span>
+          <h2 class="sec-title">Heritage of <em>Excellence</em></h2>
+          <p style="font-size:.92rem;color:var(--muted);line-height:1.85;margin-top:18px">Founded in the heart of
+            Rajkot, MarbleLuxe has been sourcing and crafting the world's most exquisite natural stones for over 25
+            years. Our quarries span Rajasthan, Italy, Turkey, and beyond.</p>
+          <p style="font-size:.92rem;color:var(--muted);line-height:1.85;margin-top:14px">Every slab tells a geological
+            story — unique veining, natural coloring, and textures that no factory can replicate.</p>
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-n" data-count="500">0</div>
+              <div class="stat-l">Stone Varieties</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-n" data-count="12000">0</div>
+              <div class="stat-l">Happy Clients</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-n" data-count="25">0</div>
+              <div class="stat-l">Years Exp.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPECIALS -->
+    <section class="sec" style="background:var(--bg2)">
+      <span class="sec-label reveal">Exclusive</span>
+      <h2 class="sec-title reveal">Something <em>Special</em></h2>
+      <div class="sp-grid reveal">
+        <div class="sp-card" onclick="goPage('products')"><img
+            src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80" alt="Statuario" />
+          <div class="sp-lbl">
+            <h3>Statuario Collection</h3>
+            <p>Ultra-white Italian marble with bold veining</p>
+          </div>
+        </div>
+        <div class="sp-card" onclick="goPage('products')"><img
+            src="https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=600&q=80" alt="Black Granite" />
+          <div class="sp-lbl">
+            <h3>Absolute Black</h3>
+            <p>Premium granite for modern interiors</p>
+          </div>
+        </div>
+        <div class="sp-card" onclick="goPage('products')"><img
+            src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&q=80" alt="Onyx" />
+          <div class="sp-lbl">
+            <h3>Exotic Onyx</h3>
+            <p>Rare translucent onyx panels</p>
+          </div>
+        </div>
+        <div class="sp-card" onclick="goPage('products')"><img
+            src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=600&q=80" alt="Quartzite" />
+          <div class="sp-lbl">
+            <h3>Quartzite Range</h3>
+            <p>Natural beauty meets durability</p>
+          </div>
+        </div>
+        <div class="sp-card" onclick="goPage('products')"><img
+            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Counter" />
+          <div class="sp-lbl">
+            <h3>Custom Counters</h3>
+            <p>Bespoke fabrication for your kitchen</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="sec">
+      <span class="sec-label" style="text-align:center;display:block">Client Stories</span>
+      <h2 class="sec-title reveal" style="text-align:center">What They <em>Say</em></h2>
+      <div class="testi-wrap">
+        <div class="tslide on">
+          <div class="tquote">MarbleLuxe transformed our kitchen entirely. The Calacatta we selected has incredible
+            veining — every guest asks about it. The quality and service are truly unmatched.</div>
+          <div class="tauthor"><img class="tavatar" src="https://i.pravatar.cc/100?img=1" alt="Priya" />
+            <div class="tname"><strong>Priya Sharma</strong><span>Interior Designer, Ahmedabad</span></div>
+          </div>
+        </div>
+        <div class="tslide">
+          <div class="tquote">We sourced our entire hotel lobby flooring from MarbleLuxe. The consistency, finish, and
+            delivery were all exceptional. Highly recommended for commercial projects.</div>
+          <div class="tauthor"><img class="tavatar" src="https://i.pravatar.cc/100?img=8" alt="Rohan" />
+            <div class="tname"><strong>Rohan Mehta</strong><span>Architect, Mumbai</span></div>
+          </div>
+        </div>
+        <div class="tslide">
+          <div class="tquote">The Absolute Black granite in my office reception is stunning. MarbleLuxe offered the best
+            pricing and the stone quality is truly premium. Will be ordering again!</div>
+          <div class="tauthor"><img class="tavatar" src="https://i.pravatar.cc/100?img=5" alt="Anita" />
+            <div class="tname"><strong>Anita Patel</strong><span>Business Owner, Surat</span></div>
+          </div>
+        </div>
+        <div class="tcontrols">
+          <button class="tbtn" onclick="prevT()">&#8592;</button>
+          <button class="tbtn" onclick="nextT()">&#8594;</button>
+        </div>
+        <div class="tdots" id="tDots"></div>
+      </div>
+    </section>
+
+    <!-- KITCHEN VIEW -->
+    <section class="sec" style="background:var(--bg2)">
+      <span class="sec-label reveal">Inspiration Gallery</span>
+      <h2 class="sec-title reveal">Kitchen <em>Views</em></h2>
+      <div class="kit-grid reveal">
+        <div class="kit-img"><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=700&q=80"
+            alt="Kitchen 1" />
+          <div class="kit-ov">&#8853;</div>
+        </div>
+        <div class="kit-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80"
+            alt="Kitchen 2" />
+          <div class="kit-ov">&#8853;</div>
+        </div>
+        <div class="kit-img"><img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?w=700&q=80"
+            alt="Kitchen 3" />
+          <div class="kit-ov">&#8853;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOORING VIEW -->
+    <section class="sec">
+      <div style="max-width:520px;margin-bottom:44px" class="reveal">
+        <span class="sec-label">Walk on Luxury</span>
+        <h2 class="sec-title">Flooring <em>Views</em></h2>
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.8;margin-top:14px">From polished Carrara to rustic
+          sandstone, our flooring range defines spaces with timeless character.</p>
+      </div>
+      <div class="floor-grid reveal">
+        <div class="fl-card"><img src="https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&q=80"
+            alt="Marble Floor" />
+          <div class="fl-lbl">Marble Floor</div>
+        </div>
+        <div class="fl-card"><img src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&q=80"
+            alt="Granite" />
+          <div class="fl-lbl">Granite</div>
+        </div>
+        <div class="fl-card"><img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=600&q=80"
+            alt="Sandstone" />
+          <div class="fl-lbl">Sandstone</div>
+        </div>
+        <div class="fl-card"><img src="https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=600&q=80"
+            alt="Onyx" />
+          <div class="fl-lbl">Onyx</div>
+        </div>
+      </div>
+    </section>
+  </div><!-- /home-page -->
+
+  <!-- =============== PRODUCTS PAGE =============== -->
+  <div id="products-page">
+    <div class="plist-head">
+      <span class="sec-label">Our Collection</span>
+      <h1>All <em style="font-style:italic;color:var(--gold)">Products</em></h1>
+    </div>
+    <input class="plist-search" id="listSearch" type="text" placeholder="Search products by name, category, or ID…"
+      oninput="filterProds()" />
+    <div class="filters" id="filterBtns"></div>
+    <div class="prod-grid" id="prodGrid"></div>
+  </div>
+
+  <!-- =============== PRODUCT DETAIL PAGE =============== -->
+  <div id="product-detail-page">
+    <button class="back-btn" onclick="goPage('products')">&#8592; Back to Products</button>
+    <div class="detail-grid" id="detailContent"></div>
+  </div>
+
+  <!-- =============== ABOUT PAGE =============== -->
+  <div id="about-page">
+    <span class="sec-label">Who We Are</span>
+    <h1
+      style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--cream);margin-bottom:36px">
+      About <em style="font-style:italic;color:var(--gold)">MarbleLuxe</em></h1>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;margin-bottom:64px">
+      <img src="https://images.unsplash.com/photo-1617104678098-de229db51175?w=900&q=80" alt="Quarry"
+        style="width:100%;border-radius:4px;object-fit:cover" />
+      <div>
+        <p style="font-size:.92rem;color:var(--muted);line-height:1.9;margin-bottom:16px">MarbleLuxe was born in 1999 in
+          Rajkot, Gujarat — a city at the crossroads of India's stone trade. Our founders saw a gap in the market for
+          truly premium natural stone paired with exceptional service.</p>
+        <p style="font-size:.92rem;color:var(--muted);line-height:1.9;margin-bottom:16px">Today, we supply marble,
+          granite, quartzite, onyx, and sandstone to interior designers, architects, builders, and homeowners across
+          India and globally.</p>
+        <p style="font-size:.92rem;color:var(--muted);line-height:1.9">Every piece undergoes strict quality checks
+          before it reaches our showroom floor.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:52px">
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:26px;text-align:center">
+        <div style="font-family:var(--fd);font-size:2.4rem;color:var(--gold);margin-bottom:6px">500+</div>
+        <div style="font-size:.78rem;color:var(--muted);letter-spacing:.08em">Stone Varieties</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:26px;text-align:center">
+        <div style="font-family:var(--fd);font-size:2.4rem;color:var(--gold);margin-bottom:6px">12K+</div>
+        <div style="font-size:.78rem;color:var(--muted);letter-spacing:.08em">Happy Clients</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:26px;text-align:center">
+        <div style="font-family:var(--fd);font-size:2.4rem;color:var(--gold);margin-bottom:6px">25+</div>
+        <div style="font-size:.78rem;color:var(--muted);letter-spacing:.08em">Years Experience</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:26px;text-align:center">
+        <div style="font-family:var(--fd);font-size:2.4rem;color:var(--gold);margin-bottom:6px">18+</div>
+        <div style="font-size:.78rem;color:var(--muted);letter-spacing:.08em">Countries Sourced</div>
+      </div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:44px;text-align:center">
+      <span class="sec-label">Our Mission</span>
+      <p
+        style="font-family:var(--fd);font-size:clamp(1.2rem,2.2vw,1.7rem);font-weight:300;font-style:italic;color:var(--cream);max-width:660px;margin:14px auto 0;line-height:1.7">
+        "To bring the earth's most beautiful stones into the spaces where life is lived — with integrity, craftsmanship,
+        and passion."</p>
+    </div>
+  </div>
+
+  <!-- =============== CONTACT PAGE =============== -->
+  <div id="contact-page">
+    <span class="sec-label">Reach Out</span>
+    <h1
+      style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--cream);margin-bottom:6px">
+      Contact <em style="font-style:italic;color:var(--gold)">Us</em></h1>
+    <p style="color:var(--muted);margin-bottom:0;font-size:.9rem">We would love to hear from you.</p>
+    <div class="contact-grid">
+      <div class="cinfo">
+        <h3>Get in Touch</h3>
+        <div class="citem">
+          <div class="cicon">&#128205;</div>
+          <div><strong>Our Showroom</strong><span>42, Stone Market, Rajkot – 360001, Gujarat, India</span></div>
+        </div>
+        <div class="citem">
+          <div class="cicon">&#128222;</div>
+          <div><strong>Phone</strong><span>+91 99999 12345</span></div>
+        </div>
+        <div class="citem">
+          <div class="cicon">&#9993;&#65039;</div>
+          <div><strong>Email</strong><span>info@marbleluxe.in</span></div>
+        </div>
+        <div class="citem">
+          <div class="cicon">&#128336;</div>
+          <div><strong>Hours</strong><span>Mon–Sat: 9AM – 7PM IST</span></div>
+        </div>
+      </div>
+      <div class="cform">
+        <h3>Send a Message</h3>
+        <div class="frow">
+          <div class="fgrp"><label>First Name</label><input class="finp" type="text" placeholder="Rahul" /></div>
+          <div class="fgrp"><label>Last Name</label><input class="finp" type="text" placeholder="Patel" /></div>
+        </div>
+        <div class="fgrp"><label>Email</label><input class="finp" type="email" placeholder="rahul@example.com" /></div>
+        <div class="fgrp"><label>Phone</label><input class="finp" type="tel" placeholder="+91 99999 00000" /></div>
+        <div class="fgrp"><label>Message</label><textarea class="finp" rows="4"
+            placeholder="Tell us about your project…"></textarea></div>
+        <button class="fsub" onclick="submitContact()">Send Message</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============== TERMS PAGE =============== -->
+  <div id="terms-page">
+    <span class="sec-label">Legal</span>
+    <h1 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--cream)">Terms
+      &amp; <em style="font-style:italic;color:var(--gold)">Conditions</em></h1>
+    <div class="legal-wrap">
+      <p>Last updated: March 2026. Please read these terms carefully before using our website or placing an order.</p>
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing MarbleLuxe's website, you agree to be bound by these terms.</p>
+      <h2>2. Products and Orders</h2>
+      <p>All stone products are natural and may have slight variations in colour, veining, and texture. Custom orders
+        require a 50% advance payment.</p>
+      <h2>3. Pricing</h2>
+      <p>Prices are in Indian Rupees and exclude GST unless stated. Confirmed orders are locked at the agreed price.</p>
+      <h2>4. Returns and Refunds</h2>
+      <ul>
+        <li>Custom-cut stone cannot be returned.</li>
+        <li>Defective goods must be reported within 48 hours with photographic evidence.</li>
+        <li>Approved refunds are processed within 15 business days.</li>
+      </ul>
+      <h2>5. Governing Law</h2>
+      <p>These terms are governed by the laws of India. Disputes shall be subject to the jurisdiction of courts in
+        Rajkot, Gujarat.</p>
+    </div>
+  </div>
+
+  <!-- =============== PRIVACY PAGE =============== -->
+  <div id="privacy-page">
+    <span class="sec-label">Legal</span>
+    <h1 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--cream)">Privacy
+      <em style="font-style:italic;color:var(--gold)">Policy</em>
+    </h1>
+    <div class="legal-wrap">
+      <p>Last updated: March 2026. Your privacy matters to us.</p>
+      <h2>1. Information We Collect</h2>
+      <ul>
+        <li>Name, email, phone number via inquiry and contact forms</li>
+        <li>Browsing data via cookies</li>
+        <li>Device and browser information for analytics</li>
+      </ul>
+      <h2>2. How We Use Your Data</h2>
+      <p>We use your data to respond to inquiries, process orders, and improve our website experience.</p>
+      <h2>3. Data Sharing</h2>
+      <p>We do not sell your data. We may share it with trusted logistics and payment partners strictly for order
+        fulfillment.</p>
+      <h2>4. Your Rights</h2>
+      <ul>
+        <li>Right to access data we hold about you</li>
+        <li>Right to request correction or deletion</li>
+        <li>Right to opt out of marketing communications</li>
+      </ul>
+      <h2>5. Contact</h2>
+      <p>For privacy queries, email privacy@marbleluxe.in</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="main-footer">
+    <div class="footer-grid">
+      <div class="fbrand">
+        <div class="flogo">MARBLE<em style="font-style:italic;color:var(--text);font-weight:300">Luxe</em></div>
+        <p>India's destination for premium natural stone — marble, granite, onyx, and beyond.</p>
+        <div class="socials">
+          <a class="soc" href="javascript:void(0)">&#128248;</a>
+          <a class="soc" href="javascript:void(0)">&#128216;</a>
+          <a class="soc" href="javascript:void(0)">&#9654;&#65039;</a>
+          <a class="soc" href="javascript:void(0)">&#128188;</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <h4>Navigation</h4>
+        <a onclick="goPage('home')">Home</a>
+        <a onclick="goPage('products')">Products</a>
+        <a onclick="goPage('about')">About Us</a>
+        <a onclick="goPage('contact')">Contact</a>
+      </div>
+      <div class="fcol">
+        <h4>Categories</h4>
+        <a onclick="goToCategory('Marble')">Marble</a>
+        <a onclick="goToCategory('Granite')">Granite</a>
+        <a onclick="goToCategory('Onyx')">Onyx</a>
+        <a onclick="goToCategory('Quartzite')">Quartzite</a>
+        <a onclick="goToCategory('Sandstone')">Sandstone</a>
+      </div>
+      <div class="fcol">
+        <h4>Legal</h4>
+        <a onclick="goPage('terms')">Terms and Conditions</a>
+        <a onclick="goPage('privacy')">Privacy Policy</a>
+        <a onclick="openInquiry('')">Make Inquiry</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <p>&#169; 2026 MarbleLuxe. All rights reserved. Rajkot, Gujarat, India.</p>
+      <div class="flegal">
+        <a onclick="goPage('terms')">Terms</a>
+        <a onclick="goPage('privacy')">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- INQUIRY MODAL -->
+  <div class="modal-ov" id="inqModal">
+    <div class="modal">
+      <button class="mclose" onclick="closeInquiry()">&#10005;</button>
+      <div id="mForm">
+        <h2>Make an <em style="font-style:italic;color:var(--gold)">Inquiry</em></h2>
+        <p class="msub">Our stone specialist will contact you within 24 hours.</p>
+        <div class="frow">
+          <div class="fgrp"><label>Name *</label><input class="finp" id="iName" type="text" placeholder="Your Name" />
+          </div>
+          <div class="fgrp"><label>Phone *</label><input class="finp" id="iPhone" type="tel"
+              placeholder="+91 99999 00000" /></div>
+        </div>
+        <div class="fgrp"><label>Email *</label><input class="finp" id="iEmail" type="email"
+            placeholder="you@email.com" /></div>
+        <div class="fgrp"><label>Product / Requirement</label><input class="finp" id="iProd" type="text"
+            placeholder="e.g. Calacatta Marble – Kitchen Countertop" /></div>
+        <div class="fgrp"><label>Message</label><textarea class="finp" id="iMsg" rows="3"
+            placeholder="Tell us more about your project…"></textarea></div>
+        <button class="fsub" onclick="submitInquiry()">Submit Inquiry</button>
+      </div>
+      <div class="msuccess" id="mSuccess">
+        <div class="micon">&#9989;</div>
+        <h3>Inquiry Received!</h3>
+        <p style="color:var(--muted);font-size:.9rem">Our stone specialist will reach out within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING WIDGETS -->
+  <div id="toast"></div>
+  <div id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</div>
+  <a class="wa-btn" href="https://wa.me/919999912345" target="_blank" title="WhatsApp">&#128172;</a>
+
+  <!-- THEME TOGGLE -->
+  <div id="theme-tog">
+    <div class="theme-panel" id="themePanel">
+      <button class="topt on" id="topt-dark" onclick="setTheme('dark')"><span
+          class="tswatch sw-dark"></span>Dark</button>
+      <button class="topt" id="topt-light" onclick="setTheme('light')"><span
+          class="tswatch sw-light"></span>Light</button>
+      <button class="topt" id="topt-warm" onclick="setTheme('warm')"><span class="tswatch sw-warm"></span>Warm
+        Gold</button>
+    </div>
+    <button class="theme-main-btn" id="themeBtn" onclick="toggleThemePanel()">&#127912;</button>
+  </div>
+
+  <script>
+    'use strict';
+
+    /* ======= DATA ======= */
+    var CATS = [
+      { name: 'Marble', count: '120+ Products', img: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=600&q=80' },
+      { name: 'Granite', count: '80+ Products', img: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=600&q=80' },
+      { name: 'Onyx', count: '35+ Products', img: 'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&q=80' },
+      { name: 'Quartzite', count: '50+ Products', img: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=600&q=80' },
+      { name: 'Sandstone', count: '40+ Products', img: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&q=80' },
+      { name: 'Limestone', count: '25+ Products', img: 'https://images.unsplash.com/photo-1617104678098-de229db51175?w=600&q=80' }
+    ];
+
+    var PRODUCTS = [
+      {
+        id: 'ML-001', name: 'Calacatta Gold', cat: 'Marble', badge: 'Best Seller',
+        short: 'Premium Italian marble with dramatic gold veining.',
+        long: 'Calacatta Gold is one of the most sought-after Italian marbles, quarried in the Apuan Alps of Carrara. Its pristine white background is complemented by bold, sweeping veins in shades of gold and grey. Ideal for kitchen countertops, feature walls, and statement floors.',
+        img: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=800&q=80',
+        thumbs: ['https://images.unsplash.com/photo-1600607686527-6fb886090705?w=300&q=80', 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&q=80', 'https://images.unsplash.com/photo-1617104678098-de229db51175?w=300&q=80', 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=300&q=80'],
+        specs: { 'Origin': 'Italy, Carrara', 'Finish': 'Polished / Honed', 'Thickness': '18mm to 30mm', 'Sizes': 'Up to 280x160 cm', 'Application': 'Kitchen, Bathroom, Floor', 'MOQ': '10 sqm' }
+      },
+
+      {
+        id: 'ML-002', name: 'Absolute Black Granite', cat: 'Granite', badge: 'Popular',
+        short: 'Deep jet-black granite with a mirror-like polish.',
+        long: 'Sourced from quarries in South India, Absolute Black Granite is the pinnacle of dark stone elegance. Its uniformly deep black surface with micro-fleck sparkle creates a dramatic contrast in any space. Extremely hard and resistant to scratches.',
+        img: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=800&q=80',
+        thumbs: ['https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=300&q=80', 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=300&q=80', 'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=300&q=80', 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=300&q=80'],
+        specs: { 'Origin': 'Tamil Nadu, India', 'Finish': 'Mirror Polish', 'Thickness': '18mm or 20mm', 'Sizes': 'Standard and Custom', 'Application': 'Kitchen, Reception, Exterior', 'MOQ': '8 sqm' }
+      },
+
+      {
+        id: 'ML-003', name: 'Verde Bamboo Onyx', cat: 'Onyx', badge: 'Rare',
+        short: 'Translucent green onyx, perfect for backlit panels.',
+        long: 'Verde Bamboo Onyx is a rare and exotic stone prized for its translucent quality and rich green tones with cream and honey undertones. When backlit, it creates a spectacular glowing effect. Each slab is unique and must be book-matched for large installations.',
+        img: 'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=800&q=80',
+        thumbs: ['https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=300&q=80', 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=300&q=80', 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=300&q=80', 'https://images.unsplash.com/photo-1617104678098-de229db51175?w=300&q=80'],
+        specs: { 'Origin': 'Iran', 'Finish': 'Polished', 'Thickness': '15mm or 20mm', 'Sizes': 'Variable natural', 'Application': 'Feature Wall, Bar, Backlit Panel', 'MOQ': '5 sqm' }
+      },
+
+      {
+        id: 'ML-004', name: 'Taj Mahal Quartzite', cat: 'Quartzite', badge: 'Premium',
+        short: 'Soft white quartzite with delicate gold and grey veining.',
+        long: 'Named for its resemblance to the iconic monument, Taj Mahal Quartzite is quarried from the mountains of Brazil. It offers the beauty of marble with the durability of granite. Resistant to etching and staining, ideal for high-traffic kitchens and living areas.',
+        img: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80',
+        thumbs: ['https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=300&q=80', 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=300&q=80', 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&q=80', 'https://images.unsplash.com/photo-1617104678098-de229db51175?w=300&q=80'],
+        specs: { 'Origin': 'Brazil', 'Finish': 'Polished or Leathered', 'Thickness': '20mm or 30mm', 'Sizes': 'Up to 300x160 cm', 'Application': 'Kitchen, Living, Floor', 'MOQ': '10 sqm' }
+      },
+
+      {
+        id: 'ML-005', name: 'Jaisalmer Yellow Limestone', cat: 'Limestone', badge: 'Heritage',
+        short: 'Warm golden limestone from Rajasthan ancient quarries.',
+        long: 'Jaisalmer Yellow Limestone has been quarried for centuries and was used in the construction of the legendary Jaisalmer Fort. This warm, honey-golden stone is perfect for exterior facades, garden paths, temple floors, and rustic interior spaces.',
+        img: 'https://images.unsplash.com/photo-1617104678098-de229db51175?w=800&q=80',
+        thumbs: ['https://images.unsplash.com/photo-1617104678098-de229db51175?w=300&q=80', 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=300&q=80', 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=300&q=80', 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=300&q=80'],
+        specs: { 'Origin': 'Jaisalmer, Rajasthan', 'Finish': 'Natural or Chiselled', 'Thickness': '25mm or 50mm', 'Sizes': 'Custom Cut', 'Application': 'Exterior, Garden, Temple', 'MOQ': '20 sqm' }
+      },
+
+      {
+        id: 'ML-006', name: 'Dholghat Sandstone', cat: 'Sandstone', badge: 'Classic',
+        short: 'Classic Indian sandstone in warm red and buff tones.',
+        long: 'Dholghat Sandstone from Madhya Pradesh is a timeless Indian stone used in heritage architecture across the subcontinent. Its warm red, buff, and brown palette makes it ideal for landscaping, pool surrounds, wall cladding, and traditional Indian architecture.',
+        img: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&q=80',
+        thumbs: ['https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=300&q=80', 'https://images.unsplash.com/photo-1617104678098-de229db51175?w=300&q=80', 'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=300&q=80', 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=300&q=80'],
+        specs: { 'Origin': 'Madhya Pradesh, India', 'Finish': 'Natural or Brushed', 'Thickness': '20mm or 40mm', 'Sizes': 'Custom', 'Application': 'Exterior, Pool, Landscape', 'MOQ': '15 sqm' }
+      },
+
+      {
+        id: 'ML-007', name: 'Statuario Bianco', cat: 'Marble', badge: null,
+        short: 'Classic white Statuario marble with bold grey veining.',
+        long: 'Statuario Bianco is the quintessential Italian marble — intensely white with dramatic bold grey veining that has captivated architects for centuries. Used by Michelangelo and today in the most prestigious interiors globally. Each slab is a unique natural artwork.',
+        img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
+        thumbs: ['https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&q=80', 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=300&q=80', 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=300&q=80', 'https://images.unsplash.com/photo-1617104678098-de229db51175?w=300&q=80'],
+        specs: { 'Origin': 'Italy', 'Finish': 'Polished', 'Thickness': '20mm', 'Sizes': 'Up to 260x150 cm', 'Application': 'Kitchen, Bathroom, Floor', 'MOQ': '8 sqm' }
+      },
+
+      {
+        id: 'ML-008', name: 'Rain Forest Brown Marble', cat: 'Marble', badge: null,
+        short: 'Exotic brown marble with intricate natural patterning.',
+        long: 'Rain Forest Brown Marble, quarried in India, features intricate dendritic patterns resembling an aerial view of a forest. No two slabs are alike. Its rich brown, green, and cream palette adds warmth and intrigue to any space.',
+        img: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=80',
+        thumbs: ['https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=300&q=80', 'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=300&q=80', 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=300&q=80', 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=300&q=80'],
+        specs: { 'Origin': 'Andhra Pradesh, India', 'Finish': 'Polished or Honed', 'Thickness': '18mm or 20mm', 'Sizes': 'Up to 240x130 cm', 'Application': 'Feature Wall, Bathroom, Floor', 'MOQ': '10 sqm' }
+      }
+    ];
+
+    var SUGGESTIONS = ['Calacatta Marble', 'Black Granite', 'Green Onyx', 'White Marble', 'Kitchen Countertop', 'Bathroom Floor', 'Taj Mahal Quartzite', 'Italian Marble', 'Rajasthan Marble', 'Flooring Stone'];
+
+    /* ======= STATE ======= */
+    var activeCat = 'All';
+    var favSet = {};
+    var tIdx = 0;
+    var hIdx = 0;
+    var hTimer = null;
+    var tPanelOpen = false;
+    var inited = false;
+    var activeTheme = 'dark';
+
+    var PAGE_IDS = ['home-page', 'products-page', 'product-detail-page', 'about-page', 'contact-page', 'terms-page', 'privacy-page'];
+
+    /* ======= ROUTER ======= */
+    function goPage(name) {
+      for (var i = 0; i < PAGE_IDS.length; i++) {
+        var el = document.getElementById(PAGE_IDS[i]);
+        if (el) el.style.display = 'none';
+      }
+      var footer = document.getElementById('main-footer');
+      if (footer) footer.style.display = 'block';
+
+      if (name === 'home') {
+        show('home-page');
+      } else if (name === 'products') {
+        show('products-page');
+        rebuildFilters();
+        filterProds();
+      } else if (name === 'product-detail') {
+        show('product-detail-page');
+      } else {
+        show(name + '-page');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function show(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'block';
+    }
+
+    /* ======= LOADER ======= */
+    function startApp() {
+      if (inited) return;
+      inited = true;
+      var loader = document.getElementById('loader');
+      if (loader) loader.classList.add('hidden');
+      buildCats();
+      buildBestProds();
+      buildHeroDots();
+      buildTestiDots();
+      rebuildFilters();
+      filterProds();
+      startHeroAuto();
+      initReveal();
+      initCounters();
+      window.addEventListener('scroll', onScroll);
+      try {
+        var saved = localStorage.getItem('ml-theme');
+        if (saved === 'light' || saved === 'warm') setTheme(saved);
+      } catch (e) { }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { setTimeout(startApp, 1600); });
+    } else {
+      setTimeout(startApp, 1600);
+    }
+    setTimeout(startApp, 3000);
+
+    /* ======= SCROLL ======= */
+    function onScroll() {
+      var nav = document.getElementById('navbar');
+      if (nav) { if (window.scrollY > 40) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }
+      var bt = document.getElementById('back-top');
+      if (bt) { if (window.scrollY > 400) bt.classList.add('show'); else bt.classList.remove('show'); }
+    }
+
+    /* ======= MOBILE MENU ======= */
+    function toggleMob() {
+      document.getElementById('hbg').classList.toggle('open');
+      document.getElementById('mobMenu').classList.toggle('open');
+      document.body.style.overflow = document.getElementById('mobMenu').classList.contains('open') ? 'hidden' : '';
+    }
+
+    /* ======= HERO ======= */
+    function buildHeroDots() {
+      var slides = document.querySelectorAll('.hslide');
+      var wrap = document.getElementById('heroDots');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      for (var i = 0; i < slides.length; i++) {
+        (function (idx) {
+          var d = document.createElement('div');
+          d.className = 'hdot' + (idx === 0 ? ' on' : '');
+          d.onclick = function () { goHero(idx); };
+          wrap.appendChild(d);
+        })(i);
+      }
+    }
+    function goHero(i) {
+      var slides = document.querySelectorAll('.hslide');
+      var dots = document.querySelectorAll('.hdot');
+      for (var j = 0; j < slides.length; j++) { slides[j].classList.remove('on'); dots[j].classList.remove('on'); }
+      if (slides[i]) slides[i].classList.add('on');
+      if (dots[i]) dots[i].classList.add('on');
+      hIdx = i;
+    }
+    function startHeroAuto() {
+      if (hTimer) clearInterval(hTimer);
+      hTimer = setInterval(function () {
+        var len = document.querySelectorAll('.hslide').length;
+        goHero((hIdx + 1) % len);
+      }, 4500);
+    }
+
+    /* ======= CATEGORIES ======= */
+    function buildCats() {
+      var grid = document.getElementById('catGrid');
+      if (!grid) return;
+      var html = '';
+      for (var i = 0; i < CATS.length; i++) {
+        var c = CATS[i];
+        html += '<div class="cat-card reveal" onclick="goToCategory(\'' + c.name + '\')">'
+          + '<img src="' + c.img + '" alt="' + c.name + '" loading="lazy"/>'
+          + '<div class="cat-info"><div class="cat-name">' + c.name + '</div><div class="cat-count">' + c.count + '</div></div>'
+          + '</div>';
+      }
+      grid.innerHTML = html;
+      initReveal();
+    }
+    function goToCategory(cat) {
+      activeCat = cat;
+      goPage('products');
+    }
+
+    /* ======= PRODUCT CARD ======= */
+    function makeCard(p) {
+      var isFav = !!favSet[p.id];
+      return '<div class="prod-card" onclick="openProd(\'' + p.id + '\')">'
+        + '<div class="pimg">'
+        + '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy"/>'
+        + (p.badge ? '<div class="pbadge">' + p.badge + '</div>' : '')
+        + '<div class="pfav' + (isFav ? ' on' : '') + '" onclick="event.stopPropagation();toggleFav(\'' + p.id + '\',this)">' + (isFav ? '&#9829;' : '&#9825;') + '</div>'
+        + '</div>'
+        + '<div class="pbody">'
+        + '<div class="pid">' + p.id + '</div>'
+        + '<div class="pname">' + p.name + '</div>'
+        + '<div class="pdesc">' + p.short + '</div>'
+        + '<div class="pfoot">'
+        + '<span class="ptag">' + p.cat + '</span>'
+        + '<button class="pinq-btn" onclick="event.stopPropagation();openInquiry(\'' + p.id + '\')">Inquire</button>'
+        + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+
+    /* ======= BEST PRODUCTS ======= */
+    function buildBestProds() {
+      var grid = document.getElementById('bestGrid');
+      if (!grid) return;
+      var html = '';
+      for (var i = 0; i < 4 && i < PRODUCTS.length; i++) { html += makeCard(PRODUCTS[i]); }
+      grid.innerHTML = html;
+    }
+
+    /* ======= FILTERS ======= */
+    function rebuildFilters() {
+      var bar = document.getElementById('filterBtns');
+      if (!bar) return;
+      var seen = {};
+      var cats = ['All'];
+      for (var i = 0; i < PRODUCTS.length; i++) {
+        if (!seen[PRODUCTS[i].cat]) { seen[PRODUCTS[i].cat] = true; cats.push(PRODUCTS[i].cat); }
+      }
+      var html = '';
+      for (var j = 0; j < cats.length; j++) {
+        var active = cats[j] === activeCat ? ' on' : '';
+        html += '<button class="filt-btn' + active + '" onclick="setFilter(\'' + cats[j] + '\')">' + cats[j] + '</button>';
+      }
+      bar.innerHTML = html;
+    }
+    function setFilter(cat) {
+      activeCat = cat;
+      var btns = document.querySelectorAll('.filt-btn');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.toggle('on', btns[i].textContent.trim() === cat);
+      }
+      filterProds();
+    }
+
+    /* ======= FILTER PRODUCTS ======= */
+    function filterProds() {
+      var grid = document.getElementById('prodGrid');
+      if (!grid) return;
+      var searchEl = document.getElementById('listSearch');
+      var q = searchEl ? searchEl.value.trim().toLowerCase() : '';
+      var list = [];
+      for (var i = 0; i < PRODUCTS.length; i++) {
+        var p = PRODUCTS[i];
+        var catOk = (activeCat === 'All' || p.cat === activeCat);
+        var termOk = !q || (p.name.toLowerCase().indexOf(q) !== -1 || p.cat.toLowerCase().indexOf(q) !== -1 || p.short.toLowerCase().indexOf(q) !== -1 || p.id.toLowerCase().indexOf(q) !== -1);
+        if (catOk && termOk) list.push(p);
+      }
+      if (list.length) {
+        var html = '';
+        for (var j = 0; j < list.length; j++) { html += makeCard(list[j]); }
+        grid.innerHTML = html;
+      } else {
+        grid.innerHTML = '<div class="no-res"><div class="no-res-icon">&#128269;</div><p>No products found. Try a different search or category.</p><button class="no-res-clear" onclick="clearFilters()">Clear Filters</button></div>';
+      }
+    }
+    function clearFilters() {
+      activeCat = 'All';
+      var el = document.getElementById('listSearch');
+      if (el) el.value = '';
+      rebuildFilters();
+      filterProds();
+    }
+
+    /* ======= FAVOURITES ======= */
+    function toggleFav(id, el) {
+      if (favSet[id]) {
+        delete favSet[id];
+        el.classList.remove('on');
+        el.innerHTML = '&#9825;';
+        showToast('Removed from favourites');
+      } else {
+        favSet[id] = true;
+        el.classList.add('on');
+        el.innerHTML = '&#9829;';
+        showToast('Added to favourites');
+      }
+    }
+
+    /* ======= PRODUCT DETAIL ======= */
+    function openProd(id) {
+      var p = null;
+      for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === id) { p = PRODUCTS[i]; break; } }
+      if (!p) return;
+
+      var thumbsHtml = '';
+      for (var t = 0; t < p.thumbs.length; t++) {
+        thumbsHtml += '<img class="d-thumb' + (t === 0 ? ' on' : '') + '" src="' + p.thumbs[t] + '" alt="View ' + (t + 1) + '" data-src="' + p.thumbs[t] + '" onclick="switchThumb(this)"/>';
+      }
+
+      var specsHtml = '';
+      var specKeys = Object.keys(p.specs);
+      for (var k = 0; k < specKeys.length; k++) {
+        specsHtml += '<div class="spec-row"><span class="sk">' + specKeys[k] + '</span><span class="sv">' + p.specs[specKeys[k]] + '</span></div>';
+      }
+
+      var html = '<div class="d-gallery">'
+        + '<img class="d-main-img" id="dMainImg" src="' + p.img + '" alt="' + p.name + '"/>'
+        + '<div class="d-thumbs">' + thumbsHtml + '</div>'
+        + '</div>'
+        + '<div>'
+        + '<div class="d-id">Stone ID: ' + p.id + '</div>'
+        + '<h1 class="d-title">' + p.name + '</h1>'
+        + '<div class="d-tags">'
+        + '<span class="d-tag">' + p.cat + '</span>'
+        + (p.badge ? '<span class="d-tag">' + p.badge + '</span>' : '')
+        + '<span class="d-tag green">&#10003; In Stock</span>'
+        + '</div>'
+        + '<div class="d-short">' + p.short + '</div>'
+        + '<div class="d-long">' + p.long + '</div>'
+        + '<button class="d-inq-btn" onclick="openInquiry(\'' + p.id + '\')">&#128233; Inquiry Now</button>'
+        + '<button class="d-sample-btn" onclick="openInquiry(\'' + p.id + '-Sample\')">Request Free Sample</button>'
+        + '<div class="d-specs"><h3>Specifications</h3>' + specsHtml + '</div>'
+        + '</div>';
+
+      document.getElementById('detailContent').innerHTML = html;
+      goPage('product-detail');
+    }
+
+    function switchThumb(el) {
+      var all = document.querySelectorAll('.d-thumb');
+      for (var i = 0; i < all.length; i++) { all[i].classList.remove('on'); }
+      el.classList.add('on');
+      var mainImg = document.getElementById('dMainImg');
+      if (mainImg) mainImg.src = el.getAttribute('data-src');
+    }
+
+    /* ======= TESTIMONIALS ======= */
+    function buildTestiDots() {
+      var slides = document.querySelectorAll('.tslide');
+      var wrap = document.getElementById('tDots');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      for (var i = 0; i < slides.length; i++) {
+        (function (idx) {
+          var d = document.createElement('div');
+          d.className = 'tdot' + (idx === 0 ? ' on' : '');
+          d.onclick = function () { goTesti(idx); };
+          wrap.appendChild(d);
+        })(i);
+      }
+      setInterval(function () { nextT(); }, 5000);
+    }
+    function goTesti(i) {
+      var slides = document.querySelectorAll('.tslide');
+      var dots = document.querySelectorAll('.tdot');
+      for (var j = 0; j < slides.length; j++) { slides[j].classList.remove('on'); dots[j].classList.remove('on'); }
+      if (slides[i]) slides[i].classList.add('on');
+      if (dots[i]) dots[i].classList.add('on');
+      tIdx = i;
+    }
+    function nextT() { var n = document.querySelectorAll('.tslide').length; goTesti((tIdx + 1) % n); }
+    function prevT() { var n = document.querySelectorAll('.tslide').length; goTesti((tIdx - 1 + n) % n); }
+
+    /* ======= INQUIRY MODAL ======= */
+    function openInquiry(productId) {
+      var prodField = document.getElementById('iProd');
+      if (prodField) {
+        var prod = null;
+        var isSample = productId.indexOf('-Sample') !== -1;
+        var lookupId = isSample ? productId.replace('-Sample', '') : productId;
+        for (var i = 0; i < PRODUCTS.length; i++) { if (PRODUCTS[i].id === lookupId) { prod = PRODUCTS[i]; break; } }
+        if (prod && isSample) prodField.value = prod.name + ' - Sample Request';
+        else if (prod) prodField.value = prod.name;
+        else prodField.value = '';
+      }
+      document.getElementById('iName').value = '';
+      document.getElementById('iPhone').value = '';
+      document.getElementById('iEmail').value = '';
+      document.getElementById('iMsg').value = '';
+      document.getElementById('mForm').style.display = 'block';
+      document.getElementById('mSuccess').style.display = 'none';
+      document.getElementById('inqModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeInquiry() {
+      document.getElementById('inqModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function submitInquiry() {
+      var name = document.getElementById('iName').value.trim();
+      var email = document.getElementById('iEmail').value.trim();
+      if (!name || !email) { showToast('Please fill in Name and Email'); return; }
+      document.getElementById('mForm').style.display = 'none';
+      document.getElementById('mSuccess').style.display = 'block';
+      setTimeout(closeInquiry, 3500);
+    }
+    document.getElementById('inqModal').addEventListener('click', function (e) { if (e.target === this) closeInquiry(); });
+
+    /* ======= CONTACT ======= */
+    function submitContact() { showToast('Message sent! We will reply within 24 hours.'); }
+
+    /* ======= SEARCH ======= */
+    function showSug(val) {
+      var box = document.getElementById('sSug');
+      if (!val.trim()) { box.classList.remove('show'); return; }
+      var hits = [];
+      for (var i = 0; i < SUGGESTIONS.length; i++) {
+        if (SUGGESTIONS[i].toLowerCase().indexOf(val.toLowerCase()) !== -1) hits.push(SUGGESTIONS[i]);
+        if (hits.length >= 6) break;
+      }
+      if (!hits.length) { box.classList.remove('show'); return; }
+      var html = '';
+      for (var j = 0; j < hits.length; j++) {
+        html += '<div class="sug-item" onclick="pickSug(\'' + hits[j].replace(/'/g, "\\'") + '\')"><span>&#128269;</span>' + hits[j] + '</div>';
+      }
+      box.innerHTML = html;
+      box.classList.add('show');
+    }
+    function hideSug() { var b = document.getElementById('sSug'); if (b) b.classList.remove('show'); }
+    function pickSug(val) { document.getElementById('mainSearch').value = val; hideSug(); doSearch(); }
+    function doSearch() {
+      var q = document.getElementById('mainSearch').value.trim();
+      if (!q) return;
+      activeCat = 'All';
+      goPage('products');
+      setTimeout(function () {
+        var el = document.getElementById('listSearch');
+        if (el) el.value = q;
+        rebuildFilters();
+        filterProds();
+      }, 80);
+    }
+
+    /* ======= REVEAL ======= */
+    function initReveal() {
+      if (!window.IntersectionObserver) {
+        var els = document.querySelectorAll('.reveal');
+        for (var i = 0; i < els.length; i++) els[i].classList.add('on');
+        return;
+      }
+      var obs = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) { entries[i].target.classList.add('on'); obs.unobserve(entries[i].target); }
+        }
+      }, { threshold: 0.1 });
+      var els = document.querySelectorAll('.reveal');
+      for (var j = 0; j < els.length; j++) obs.observe(els[j]);
+    }
+
+    /* ======= COUNTERS ======= */
+    function initCounters() {
+      if (!window.IntersectionObserver) return;
+      var obs = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (!entries[i].isIntersecting) continue;
+          var el = entries[i].target;
+          var target = parseInt(el.getAttribute('data-count'), 10);
+          var cur = 0;
+          var step = Math.max(1, Math.ceil(target / 60));
+          (function (elem, tgt, s) {
+            var timer = setInterval(function () {
+              cur += s; if (cur >= tgt) { cur = tgt; clearInterval(timer); }
+              elem.textContent = cur.toLocaleString();
+            }, 28);
+          })(el, target, step);
+          obs.unobserve(el);
+        }
+      }, { threshold: 0.5 });
+      var els = document.querySelectorAll('[data-count]');
+      for (var j = 0; j < els.length; j++) obs.observe(els[j]);
+    }
+
+    /* ======= THEME TOGGLE ======= */
+    function setTheme(theme) {
+      activeTheme = theme;
+      var html = document.documentElement;
+      html.classList.remove('theme-light', 'theme-warm');
+      if (theme === 'light') html.classList.add('theme-light');
+      if (theme === 'warm') html.classList.add('theme-warm');
+
+      var ids = ['dark', 'light', 'warm'];
+      for (var i = 0; i < ids.length; i++) {
+        var btn = document.getElementById('topt-' + ids[i]);
+        if (btn) btn.classList.toggle('on', ids[i] === theme);
+      }
+      var icons = { dark: '&#127761;', light: '&#9728;&#65039;', warm: '&#127777;&#65039;' };
+      var tb = document.getElementById('themeBtn');
+      if (tb) tb.innerHTML = icons[theme];
+
+      setTimeout(function () {
+        tPanelOpen = false;
+        var panel = document.getElementById('themePanel');
+        if (panel) panel.classList.remove('open');
+      }, 200);
+
+      try { localStorage.setItem('ml-theme', theme); } catch (e) { }
+      var labels = { dark: 'Dark', light: 'Light', warm: 'Warm Gold' };
+      showToast('Theme: ' + labels[theme] + ' applied');
+    }
+
+    function toggleThemePanel() {
+      tPanelOpen = !tPanelOpen;
+      var panel = document.getElementById('themePanel');
+      if (panel) panel.classList.toggle('open', tPanelOpen);
+    }
+
+    document.addEventListener('click', function (e) {
+      var tog = document.getElementById('theme-tog');
+      if (tog && !tog.contains(e.target)) {
+        tPanelOpen = false;
+        var panel = document.getElementById('themePanel');
+        if (panel) panel.classList.remove('open');
+      }
+    });
+
+    /* ======= TOAST ======= */
+    var toastTimer = null;
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      if (!t) return;
+      t.textContent = msg;
+      t.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2800);
+    }
+  </script>
+</body>
+
+</html>
